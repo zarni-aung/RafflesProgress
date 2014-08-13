@@ -1,6 +1,6 @@
 ﻿angular.module('main')
     .controller('SchemeController', ['$scope', '$http', function ($scope, $http) {
-        function initvars() {
+        function sourcevars() {
             var ret = {};
 
             
@@ -10,8 +10,18 @@
             ret.sourceScanners = SOURCE_SCANNERS;
             return ret;
         }
+        function initvars() {
+            var ret = sourcevars();
+            $scope.sourceMarkets = ret.sourceMarkets;
+            $scope.sourceIndicators = ret.sourceIndicators;
+            $scope.sourcePatternScanners = ret.sourcePatternScanners;
+            $scope.sourceScanners = ret.sourceScanners;
+        }
         $scope.schemelist = [];
+        
         initvars();
+
+
         $scope.schemeid = 0;
         
         console.log('sourceMarkets:' + $scope.sourceMarkets);
