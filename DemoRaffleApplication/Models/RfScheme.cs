@@ -6,8 +6,7 @@ using System.Linq;
 using System.Web;
 
 namespace DemoRaffleApplication.Models
-{C:\Users\zarni.aung\Source\Repos\WebProject1\DemoRaffleApplication\Scripts\app\event.js
-    [Serializable]
+{  [Serializable]
     [Table("RfScheme")]
     public class RfScheme
     {

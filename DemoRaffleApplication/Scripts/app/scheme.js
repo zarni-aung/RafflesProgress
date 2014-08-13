@@ -1,15 +1,24 @@
 ﻿angular.module('main')
-    .controller('SchemeController', ['$scope', function ($scope) {
+    .controller('SchemeController', ['$scope', '$http', function ($scope, $http) {
+        function initvars() {
+            var ret = {};
+
+            
+            ret.sourceMarkets = SOURCE_MARKETS;
+            ret.sourceIndicators = SOURCE_INDICATORS;
+            ret.sourcePatternScanners = SOURCE_PATTERN_SCANNERS;
+            ret.sourceScanners = SOURCE_SCANNERS;
+            return ret;
+        }
         $scope.schemelist = [];
+        initvars();
         $scope.schemeid = 0;
-        $scope.sourceMarkets = SOURCE_MARKETS;
-        $scope.sourceIndicators = SOURCE_INDICATORS;
-        $scope.sourcePatternScanners = SOURCE_PATTERN_SCANNERS;
-        $scope.sourceScanners = SOURCE_SCANNERS;
+        
         console.log('sourceMarkets:' + $scope.sourceMarkets);
         $scope.usermarkets = '';
         $scope.selectedFunc = 'init val';
         $scope.functionSources = ['Markets', 'Indicators', 'Pattern Scanners', 'Scanners'];
+        listSchemes();
         $scope.$watchCollection('sourceMarkets', function (nval, oval) {
             var mkts = [];
 
@@ -98,6 +107,7 @@
                 .success(function (data) {
                     console.log('add db scheme:' + data);
                     clearScheme();
+                    listSchemes();
                 })
             .error(function (data) {
                 console.log('error add db scheme:' + data);
@@ -108,29 +118,32 @@
         function clearScheme() {
             $scope.added = true;
             $scope.addedMsg = "New scheme successfully created";
-            $scope.schemelist.push(schm);
+            
             $scope.name = "";
             $scope.description = "";
             $scope.usermarkets = "";
             $scope.userindicators = "";
             $scope.userbullbeartest = "";
             $scope.userbacktest = "";
-            $scope.patternscanners = "";
+            $scope.patternscanners = ""; 
+            console.log("before clear SOURCE_MARKETS:" + SOURCE_MARKETS);
+            initvars();
             $scope.scanners = "";
             $scope.isscanner = false;
             $scope.showScheme = false;
         }
 
         function listSchemes() {
-            $http.get('/home/schemecreate',
+            $scope.schemelist = [];
+            $http.get('/home/schemelists',
                {
-                   params: dbobj,
-                   headers: { 'Content-Type': 'application/json; charset=UTF-8' }
+                  headers: { 'Content-Type': 'application/json; charset=UTF-8' }
                })
                .success(function (data) {
                    console.log('list db scheme:' + data);
                    $.each(data, function (idx, dataval) {
-                       schm = {}
+                       var schm = {};
+                       schm.schemeid = dataval.Id;
                        schm.name = dataval.SchemeName;
                        schm.description = dataval.Description;
                        schm.usermarkets = dataval.UserMarkets;
@@ -145,13 +158,17 @@
         }
 
         $scope.removeScheme = function (id) {
-            var result;
-            $.each($scope.schemelist, function (idx, e) {
-                if (e.schemeid == id) {
-                    result = idx;
-                    return;
-                }
+            $http.get('/home/schemedelete',
+                {
+                    params: { "schemeId": id },
+                    headers: { 'Content-Type': 'application/json; charset=UTF-8' }
+                })
+                .success(function (data) {
+                    console.log('delete db scheme:' + data);                    
+                    listSchemes();
+                })
+            .error(function (data) {
+                console.log('error delete db scheme:' + data);
             });
-            $scope.schemelist.splice(result, 1);
         };
     }]);
