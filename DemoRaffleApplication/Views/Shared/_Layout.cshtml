@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <script type="text/javascript" src="~/Scripts/angular.js"></script>
+        <script type="text/javascript" src="/Scripts/jquery-1.8.2.js"></script>
+        <script type="text/javascript" src="~/Scripts/angular-route.js"></script>
+        <script type="text/javascript" src="~/Scripts/angular-resource.js"></script>
+        <script type="text/javascript" src="~/Scripts/angular-loader.js"></script>
+        
+        <script type="text/javascript" src="~/Scripts/app/app.js"></script>
+        <script type="text/javascript" src="~/Scripts/app/function.js"></script>
+        <script type="text/javascript" src="~/Scripts/app/main.js"></script>
+        <script type="text/javascript" src="~/Scripts/app/event.js"></script>
+        <script type="text/javascript" src="~/Scripts/app/user.js"></script>
+        <script type="text/javascript" src="~/Scripts/app/scheme.js"></script>
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"> 
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+
+      
+</script>
+
+    </head>
+    <body ng-app="main" ng-controller="RootController">
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
+                </div>
+                <div class="float-right">
+                    <section id="login">
+                        @Html.Partial("_LoginPartial")
+                    </section>
+                    @*<nav>
+                        <ul id="menu">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>
+                    </nav>*@
+                </div>
+                
+                @*<a class="brand" href='#/home'>AngularStart1</a>*@
+                <div class="nav-collapse">
+                    <ul class="nav" id="menu">
+@*                        <li ng-class="{active : activeViewPath==='/home'}"><a href='#/home'>Home</a></li>
+                        <li ng-class="{active : activeViewPath==='/demo'}"><a href="#/demo">Demo</a></li>
+                        <li ng-class="{active : activeViewPath==='/angular'}"><a href='#/angular'>Learn Angular</a></li>
+                        <li ng-class="{active : activeViewPath==='/about'}"><a href='#/about'>About</a></li>
+                        <li ng-class="{active : activeViewPath==='/contact'}"><a href='#/contact'>Contact</a></li>*@
+                        <li ng-class="{active: activeViewPath==='/demoadmin'}"><a href="#/demoadmin">Demo Admin</a></li>
+                        <li ng-if="isUserLoggedIn == 0"  ng-class="{active: activeViewPath==='/democreateuser'}"><a href="#/democreateuser">Demo User</a></li>
+                        <li ng-if="isUserLoggedIn == 1"  ng-class="{active: activeViewPath==='/demouser'}"><a href="#/demouser">Demo User</a></li>
+                        
+                    </ul>
+                </div>
+
+            </div>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+                </div>
+            </div>
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")
+
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

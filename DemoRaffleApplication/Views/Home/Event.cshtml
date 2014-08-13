@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Event";    
+}
+<html ng-app="sampleApp">
+<script type="text/javascript" src="~/Scripts/angular.js"></script>
+    <script type="text/javascript" src="~/Scripts/angular-route.js"></script>
+    <script type="text/javascript">
+        var sampleApp = angular.module('sampleApp', ['ngRoute']);
+
+        sampleApp.config(['$routeProvider',
+            function ($routeProvider) {
+                $routeProvider.
+                when('/AddNewOrder', {
+                    templateUrl: 'add_order.html',
+                    controller: 'AddOrderController'
+                }).
+                 when('/EventDetail', {
+                     templateUrl: '/Home/event2',
+                     controller: 'EventDetailController'
+                 }).
+                otherwise({
+                    redirectTo: '/'
+                });
+            }]);
+
+        sampleApp.controller('AddOrderController', function ($scope) {
+            $scope.message = 'This is Add new order screen';
+        });
+        sampleApp.controller('EventDetailController', function ($scope) {
+            $scope.message = 'This is event detailscreen';
+        });
+    </script>
+    <script type="text/ng-template" id="add_order.html">
+        <h2>Add new Order</h2>
+        {{message}}
+    </script>
+<h2>Event</h2>
+    <input ng-model="txtEventId" />
+    {{txtEventId}}
+    <a href="#AddNewOrder"> Add New Order</a>
+    <a href="#/EventDetail"> Event Detail</a>
+    <h3>Inline View Here<h3>
+         <div ng-view></div>
+</html>

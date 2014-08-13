@@ -1,0 +1,164 @@
+﻿@{
+    Layout = null;
+}
+
+<div>
+    <h1> Scheme </h1>
+
+
+    <h2>Create Scheme</h2>
+
+
+    <img src="~/Images/add_32x32.png" class="img-button" title="create scheme" alt="Click here to create scheme" ng-click="showScheme=true;added=false;"></img>
+    <br />
+    <p ng-show="added" class="message-success">{{addedMsg}}</p>
+    <div>
+        <table ng-show="showScheme==true">
+            <tr>
+                <td>Name</td>
+                <td><input ng-model="name" /></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><input ng-model="description" /></td>
+            </tr>
+            <tr>
+                <td>Markets </td>
+                <td>
+                    <span ng-repeat="(market,flg) in sourceMarkets">
+                        <input type="checkbox" ng-model="sourceMarkets[market]" /> {{market}}
+                    </span>
+                    <br />
+                    <input type="text" class="input-medium" disabled ng-model="usermarkets" />
+                </td>
+            </tr>
+            <tr>
+                <td>Indicators</td>
+                <td>
+                    <span ng-repeat="(idc,flg) in sourceIndicators">
+                        <input type="checkbox" ng-model="sourceIndicators[idc]" /> {{idc}}
+                    </span>
+                    <br />
+                    <input ng-model="userindicators" disabled />
+                </td>
+            </tr>
+            <tr>
+                <td>Bull Bear Test</td>
+                <td><input ng-model="userbullbeartest"></input></td>
+            </tr>
+            <tr>
+                <td>Back Test</td>
+                <td><input ng-model="userbacktest"></input></td>
+            </tr>
+            <tr>
+                <td>Pattern Scanners </td>
+                <td>
+                    <span ng-repeat="(ptn,flg) in sourcePatternScanners">
+                        <input type="checkbox" ng-model="sourcePatternScanners[ptn]" /> {{ptn}}
+                    </span>
+                    <br />
+                    <input type="text" disabled ng-model="patternscanners" />
+                </td>
+            </tr>
+            <tr>
+                <td>Scanners</td>
+                <td>
+                    <span ng-repeat="(scn,flg) in sourceScanners">
+                        <input type="checkbox" ng-model="sourceScanners[scn]" /> {{scn}}
+                    </span>
+                    <br />
+                    <input ng-model="scanners" disabled />
+                </td>
+            </tr>
+            <tr>
+                <td>Scanner</td>
+                <td><input type="checkbox" ng-model="isscanner" /></td>
+            </tr>
+            <tr>
+                <td><input type="button" ng-click="addScheme()" value="Create Scheme" /></td>
+
+            </tr>
+        </table>
+    </div>
+
+    <h2>List of Schemes</h2>
+    <table>
+        <thead>
+            <tr ng-if="schemelist.length>0">
+                <th>Remove</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Markets</th>
+                <th>Indicators</th>
+                <th>Bull Bear Test</th>
+                <th>Back Test</th>
+                <th>Patterns Scanners</th>
+                <th>Scanner</th>
+                <th>Scanner</th>
+            </tr>
+        </thead>
+        <tr ng-repeat="scheme in schemelist">
+            <td><img class="img-button" src="~/Images/close_16x16.png" ng-click="removeScheme(scheme.schemeid)" /> </td>
+            <td>{{scheme.name}}</td>
+            <td>{{scheme.description}}</td>
+            <td>{{scheme.usermarkets}}</td>
+            <td>{{scheme.userindicators}}</td>
+            <td>{{scheme.userbullbeartest}}</td>
+            <td>{{scheme.userbacktest}}</td>
+            <td>{{scheme.patternscanners}}</td>
+            <td>{{scheme.scanners}}</td>
+            <td>{{scheme.isscanner}}</td>
+        </tr>
+
+    </table>
+    </>
+
+    <div>
+        <h2>Activate Scheme</h2>
+
+        <img src="~/Images/add_32x32.png" class="img-button" title="activate scheme" alt="Click here to create scheme" ng-click="showActScheme=true"></img>
+
+        <div ng-if="showActScheme">
+            <table>
+                <tr>
+                    <td>
+                        Scheme
+                    </td>
+                    <td>
+                        <select size="8" style="width:250px">
+                            <option ng-repeat="scheme in schemelist">({{scheme.name}}) {{scheme.description}}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Emails</td>
+                    <td> <textarea rows="10"></textarea></td>
+                </tr>
+            </table>    <tr>
+                <td</td>
+                <td>><input type="submit" /> </td>
+            </tr>
+
+        </div>
+    </div>
+    <div>
+        <h2>Activate function</h2>
+        <img src="~/Images/add_32x32.png" class="img-button" title="activate function" alt="Click here to activate function" ng-click="showActFunction=true"></img>
+        <div ng-show="showActFunction" class="col-sm-11 col-sm-offset-2">
+            <form name="activateFunctionForm" ng-submit="activateFunction()" novalidate>
+
+                <div class="form-group" ng-class="{ 'has-error' : eventForm.name.$invalid && !eventForm.name.$pristine }">
+                    <label>Function</label>
+                    <label ng-repeat="func in functionSources">
+
+                        <input name="functoselect" type="radio" ng-model="$parent.selectedFunc" value="{{func}}" /> {{func}}
+                    </label>
+
+                    selected function: {{selectedFunc}}
+                    
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

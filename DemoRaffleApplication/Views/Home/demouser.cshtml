@@ -1,0 +1,31 @@
+﻿@{
+    Layout = null;
+}
+<div>
+   
+    <div>
+       
+        
+      <h2>List of Events</h2>           
+        <table><thead><tr ng-if="regEvents.length>0">
+            <th>register</th>
+            <th>Y/N</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Description</th>
+                      </tr></thead>
+            <tr ng-repeat="revent in regEvents">
+
+                <td ng-if="revent.register != 'Y'"><img class="img-button"  src="~/Images/person_checked_16x16.png" value="RG" ng-click="registerEvent(revent.event.eventid)" title="register the event" /> </td>
+                <td ng-if="revent.register == 'Y'"><img class="img-button" src="~/Images/close_16x16.png" value="UR" ng-click="registerEvent(revent.event.eventid)" title="un register" /> </td>
+                <td>{{revent.register}}</td>
+                <td>{{revent.event.name}}</td>
+                <td>{{revent.event.datetime}}</td>
+                <td>{{revent.event.location}}</td>
+                <td>{{revent.event.description}}</td>
+            </tr>
+
+
+        </table>
+</div>

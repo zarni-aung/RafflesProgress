@@ -1,0 +1,35 @@
+﻿@{
+    Layout = null;
+}
+<div>
+    <h2> Create User </h2>
+     
+    <div>
+                
+        <table><tr>
+            <td>Name</td>
+            <td><input ng-model="name" /></td>
+            </tr><tr>
+            <td>Email</td>
+            <td><input type="email"  ng-model="email" /></td>
+                </tr><tr>
+            <td>Handphone</td>
+            <td><input ng-model="handphone"  /></td>
+                    </tr><tr>
+            <td>Captcha</td>
+            <td><input ng-model="captcha" /></td><td><img src="/Home/GetCaptcha" /></td>
+            </tr><tr>
+                <td></td>
+                <td><input type="checkbox" />Agree to terms and conditions</td>
+             </tr>
+          
+            <tr><td></td>
+                <td><input type="button" value="Sign Up" ng-click="addUser()" /></td>
+            </tr>
+        </table>
+        <span ng-show="usersuccess" class="message-success">User Successfully Created</span>
+        <br />
+        <a ng-show="usersuccess" href="#/demouser" >View / Register Available Events</a>
+</div>
+
+ </div>
