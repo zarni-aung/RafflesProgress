@@ -1,21 +1,27 @@
 ﻿angular.module('main')
     .controller('SchemeController', ['$scope', '$http', function ($scope, $http) {
-        function sourcevars() {
-            var ret = {};
+        function sourcevars(sm, si, sp, ss) {
+            var _sm = sm, _si = si, _sp = sp, _ss = ss;
 
-            
-            ret.sourceMarkets = SOURCE_MARKETS;
-            ret.sourceIndicators = SOURCE_INDICATORS;
-            ret.sourcePatternScanners = SOURCE_PATTERN_SCANNERS;
-            ret.sourceScanners = SOURCE_SCANNERS;
-            return ret;
+            this.getSM = function () {
+                return _sm;
+            }
+            this.getSI = function () {
+                return _si;
+            }
+            this.getSP = function () {
+                return _sp;
+            }
+            this.getSS = function () {
+                return _ss;
+            }
         }
         function initvars() {
-            var ret = sourcevars();
-            $scope.sourceMarkets = ret.sourceMarkets;
-            $scope.sourceIndicators = ret.sourceIndicators;
-            $scope.sourcePatternScanners = ret.sourcePatternScanners;
-            $scope.sourceScanners = ret.sourceScanners;
+            var ret = new sourcevars(SOURCE_MARKETS, SOURCE_INDICATORS, SOURCE_PATTERN_SCANNERS, SOURCE_SCANNERS);
+            $scope.sourceMarkets = ret.getSM();
+            $scope.sourceIndicators = ret.getSI();
+            $scope.sourcePatternScanners = ret.getSP();
+            $scope.sourceScanners = ret.getSS();
         }
         $scope.schemelist = [];
         
